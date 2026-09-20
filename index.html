@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>CartNova | SIH</title>
+
+<style>
+
+/* =========================
+   GLOBAL & ENHANCED BACKGROUND
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    color: #1f2937;
+    min-height: 100vh;
+    position: relative;
+    background-color: #0d1527;
+    background-image: 
+        radial-gradient(circle at 10% 15%, rgba(34, 197, 94, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 20%, rgba(59, 130, 246, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(99, 102, 241, 0.10) 0%, transparent 50%),
+        radial-gradient(rgba(255, 255, 255, 0.08) 1.2px, transparent 1.2px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
+    background-attachment: fixed;
+}
+
+.header {
+    height: 70px;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.logo span { color: #22c55e; text-shadow: 0 0 16px rgba(34, 197, 94, 0.4); }
+.header-right { display: flex; align-items: center; gap: 20px; }
+.online { display: flex; align-items: center; gap: 8px; font-size: 13.5px; background: rgba(34, 197, 94, 0.12); border: 1px solid rgba(34, 197, 94, 0.35); padding: 6px 14px; border-radius: 20px; color: #4ade80; font-weight: 500; }
+.online-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; animation: pulse 2s infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.9); } }
+.manager-badge { background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 8px; font-size: 13.5px; color: #e2e8f0; }
+
+.nav { background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(255, 255, 255, 0.4); display: flex; padding: 0 35px; box-shadow: 0 4px 20px -5px rgba(0, 0, 0, 0.15); position: sticky; top: 70px; z-index: 40; }
+.nav button { border: none; background: none; padding: 16px 24px; cursor: pointer; font-size: 14.5px; font-weight: 500; color: #475569; transition: all 0.2s ease; border-bottom: 3px solid transparent; }
+.nav button:hover, .nav button.active { color: #16a34a; }
+.nav button.active { border-bottom: 3px solid #16a34a; font-weight: 700; }
+
+.page { padding: 35px; max-width: 1400px; margin: auto; }
+.page-title { margin-bottom: 28px; }
+.page-title h1 { font-size: 28px; color: #f8fafc; font-weight: 800; letter-spacing: -0.5px; }
+.page-title p { color: #94a3b8; margin-top: 6px; font-size: 14.5px; }
+.stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 28px; }
+.stat-card { background: rgba(255, 255, 255, 0.90); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 24px; border-radius: 14px; border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2), 0 4px 10px -2px rgba(0, 0, 0, 0.1); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.stat-card:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -5px rgba(0, 0, 0, 0.28); }
+.stat-title { color: #64748b; font-size: 13.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.stat-value { font-size: 32px; font-weight: 800; margin-top: 10px; letter-spacing: -0.5px; }
+.stat-green { color: #16a34a; } .stat-red { color: #dc2626; } .stat-blue { color: #2563eb; }
+.dashboard-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 25px; }
+.card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 16px; padding: 26px; border: 1px solid rgba(255, 255, 255, 0.7); box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.22), 0 4px 12px -2px rgba(0, 0, 0, 0.1); }
+.card-title { font-size: 19px; font-weight: 700; margin-bottom: 20px; color: #0f172a; display: flex; align-items: center; gap: 8px; }
+.table-wrapper { overflow-x: auto; border-radius: 10px; border: 1px solid #e2e8f0; }
+table { width: 100%; border-collapse: collapse; } th { background: #f1f5f9; text-align: left; padding: 14px; font-size: 12.5px; font-weight: 700; text-transform: uppercase; color: #475569; letter-spacing: 0.4px; } td { padding: 14px; border-top: 1px solid #e2e8f0; font-size: 14px; color: #334155; } tbody tr:hover { background-color: rgba(241, 245, 249, 0.6); }
+.stock-ok { color: #16a34a; font-weight: 700; } .stock-low { color: #dc2626; font-weight: 700; }
+.status { display: inline-block; padding: 4px 10px; border-radius: 20px; font-size: 11.5px; font-weight: 700; } .status-ok { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; } .status-low { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
+.cart-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 28px; align-items: start; }
+.cart-screen { background: #090e17; border-radius: 24px; padding: 22px; color: white; max-width: 480px; margin: auto; border: 3px solid #1e293b; box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.1); }
+.tft-screen { background: #ffffff; color: #0f172a; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.15); border: 1px solid #cbd5e1; }
+.tft-header { background: linear-gradient(135deg, #16a34a, #15803d); color: white; padding: 16px; text-align: center; font-weight: 700; font-size: 15px; letter-spacing: 0.5px; }
+.scan-area { padding: 24px; text-align: center; border-bottom: 1px solid #e2e8f0; background: #f8fafc; }
+.scan-box { border: 2px dashed #94a3b8; padding: 24px; border-radius: 12px; color: #64748b; font-size: 14px; }
+.scan-box button { margin-top: 14px; background: #16a34a; color: white; border: none; padding: 11px 22px; border-radius: 8px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 12px rgba(22, 163, 74, 0.25); transition: background 0.2s ease, transform 0.1s ease; }
+.scan-box button:hover { background: #15803d; transform: translateY(-1px); }
+.cart-items { padding: 16px; min-height: 220px; max-height: 280px; overflow-y: auto; } .cart-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; } .item-name { font-weight: 700; color: #1e293b; } .item-price { color: #16a34a; font-weight: 800; }
+.total-box { padding: 18px 20px; background: #f0fdf4; border-top: 1px solid #dcfce7; display: flex; justify-content: space-between; font-size: 19px; font-weight: 800; color: #14532d; }
+.pay-button { width: 100%; border: none; background: linear-gradient(135deg, #16a34a, #15803d); color: white; padding: 16px; font-size: 15px; font-weight: 800; letter-spacing: 0.5px; cursor: pointer; transition: opacity 0.2s ease; } .pay-button:hover { opacity: 0.95; }
+.product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; } .product-button { padding: 14px; background: #ffffff; border: 1px solid #cbd5e1; border-radius: 10px; cursor: pointer; text-align: left; transition: all 0.2s ease; } .product-button:hover { border-color: #16a34a; background: #f0fdf4; transform: translateY(-1px); } .product-button strong { display: block; margin-bottom: 4px; color: #0f172a; }
+.alert { padding: 14px 16px; border-radius: 10px; margin-bottom: 12px; background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; font-size: 13.5px; } .alert strong { display: block; margin-bottom: 4px; font-size: 14px; }
+.cart-status { display: flex; justify-content: space-between; padding: 14px 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; margin-top: 15px; font-size: 14px; font-weight: 600; } .cart-online { color: #16a34a; font-weight: 700; }
+.qr-container { text-align: center; padding: 30px; max-width: 440px; margin: auto; } .qr { width: 190px; height: 190px; margin: 22px auto; background: repeating-linear-gradient(45deg, #0f172a 0px, #0f172a 4px, #ffffff 4px, #ffffff 8px); border: 12px solid white; border-radius: 10px; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); } .payment-success { background: #dcfce7; color: #15803d; border: 1px solid #bbf7d0; padding: 24px; border-radius: 12px; text-align: center; font-size: 19px; font-weight: 800; box-shadow: 0 4px 15px rgba(34, 197, 94, 0.15); }
+@media(max-width: 992px) { .stats { grid-template-columns: repeat(2, 1fr); } .dashboard-grid, .cart-layout { grid-template-columns: 1fr; } }
+@media(max-width: 640px) { .header, .nav { padding: 0 16px; } .nav { overflow-x: auto; } .nav button { padding: 14px 15px; white-space: nowrap; } .page { padding: 20px 14px; } .stats { grid-template-columns: 1fr; } .product-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<header class="header"><div class="logo">CART<span>NOVA</span></div><div class="header-right"><div class="online"><div class="online-dot"></div>System Online</div><div class="manager-badge">Manager</div></div></header>
+<nav class="nav"><button id="tab-dashboard" class="active" onclick="showPage('dashboard')">Dashboard</button><button id="tab-cart" onclick="showPage('cart')">Smart Cart</button><button id="tab-inventory" onclick="showPage('inventory')">Inventory</button><button id="tab-payment" onclick="showPage('payment')">Payment</button></nav>
+<div id="dashboardPage" class="page"><div class="page-title"><h1>Manager Dashboard</h1><p>Real-time shopping cart &amp; inventory monitoring</p></div><div class="stats"><div class="stat-card"><div class="stat-title">Total Products</div><div class="stat-value stat-blue" id="totalProducts">10</div></div><div class="stat-card"><div class="stat-title">Total Stock</div><div class="stat-value stat-green" id="totalStock">710</div></div><div class="stat-card"><div class="stat-title">Low Stock Items</div><div class="stat-value stat-red" id="lowStock">0</div></div><div class="stat-card"><div class="stat-title">Active Carts</div><div class="stat-value" style="color:#0f172a;">1</div></div></div><div class="dashboard-grid"><div class="card"><div class="card-title">Inventory Overview</div><div class="table-wrapper"><table><thead><tr><th>Product</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead><tbody id="inventoryTable"></tbody></table></div></div><div class="card"><div class="card-title">Inventory Alerts</div><div id="alerts"><div class="alert"><strong>No critical alerts</strong>All inventory levels are currently normal.</div></div><div class="cart-status"><span>CARTNOVA-001</span><span class="cart-online">● ONLINE</span></div></div></div></div>
+<div id="cartPage" class="page" style="display:none;"><div class="page-title"><h1>Smart Shopping Cart</h1><p>Customer self-billing interface</p></div><div class="cart-layout"><div class="cart-screen"><div class="tft-screen"><div class="tft-header">CARTNOVA — CART 001</div><div class="scan-area"><div class="scan-box">📷<br><br>Scan product barcode<br><button onclick="simulateScan()">Simulate Scan</button></div></div><div class="cart-items" id="cartItems"><p style="text-align:center; color:#94a3b8; padding:50px 0;">No products scanned</p></div><div class="total-box"><span>TOTAL</span><span id="cartTotal">₹0</span></div><button class="pay-button" onclick="showPage('payment')">PROCEED TO PAYMENT</button></div></div><div class="card"><div class="card-title">Barcode Scanner Simulator</div><p style="color:#64748b; font-size:14px; margin-bottom:20px; line-height:1.5;">In the physical system, these manual buttons are triggered when the 2D barcode scanner decodes a barcode and sends the serial stream to the ESP32 microcontroller.</p><div class="product-grid" id="productButtons"></div></div></div></div>
+<div id="inventoryPage" class="page" style="display:none;"><div class="page-title"><h1>Inventory Management</h1><p>Complete store catalog and real-time database cache</p></div><div class="card"><div class="table-wrapper"><table><thead><tr><th>ID</th><th>Product</th><th>Category</th><th>Barcode</th><th>Price</th><th>Stock</th><th>Status</th></tr></thead><tbody id="fullInventory"></tbody></table></div></div></div>
+<div id="paymentPage" class="page" style="display:none;"><div class="page-title"><h1>Payment Gateway</h1><p>Instant UPI dynamic QR settlement</p></div><div class="card"><div class="qr-container"><h2 style="color:#0f172a; font-size:22px;">Scan to Pay</h2><p style="color:#64748b; margin-top:6px; font-size:14px;">CartNova Terminal #001</p><div class="qr"></div><h2 id="paymentAmount" style="font-size:32px; font-weight:800; color:#16a34a; margin: 10px 0;">₹0</h2><p style="color:#64748b; font-size:13.5px; margin-bottom:20px;">Scan this QR using any UPI application (GPay, PhonePe, Paytm)</p><button class="pay-button" style="border-radius:10px; max-width:320px; margin:auto;" onclick="paymentSuccess()">SIMULATE UPI PAYMENT</button></div></div></div>
+<script>
+let products = [
+ {id:1,name:"Lays Classic Salted",barcode:"890123456001",category:"Snacks",price:20,stock:100,reorder:10},
+ {id:2,name:"Coca Cola 500ml",barcode:"890123456002",category:"Beverages",price:40,stock:80,reorder:10},
+ {id:3,name:"Dairy Milk 40g",barcode:"890123456003",category:"Chocolate",price:50,stock:50,reorder:10},
+ {id:4,name:"Kurkure Masala Munch",barcode:"890123456004",category:"Snacks",price:20,stock:75,reorder:10},
+ {id:5,name:"Pepsi 500ml",barcode:"890123456005",category:"Beverages",price:40,stock:60,reorder:10},
+ {id:6,name:"Maggi 70g",barcode:"890123456006",category:"Instant Food",price:15,stock:120,reorder:15},
+ {id:7,name:"Britannia Good Day",barcode:"890123456007",category:"Biscuits",price:30,stock:90,reorder:10},
+ {id:8,name:"Colgate 100g",barcode:"890123456008",category:"Personal Care",price:65,stock:40,reorder:10},
+ {id:9,name:"Lux Soap 100g",barcode:"890123456009",category:"Personal Care",price:40,stock:35,reorder:10},
+ {id:10,name:"Tata Salt 1kg",barcode:"890123456010",category:"Grocery",price:30,stock:50,reorder:10}
+];
+let cart = [];
+function showPage(page){['dashboard','cart','inventory','payment'].forEach(p=>document.getElementById(p+'Page').style.display='none');document.getElementById(page+'Page').style.display='block';document.querySelectorAll('.nav button').forEach(btn=>btn.classList.remove('active'));const activeTab=document.getElementById('tab-'+page);if(activeTab)activeTab.classList.add('active');updateInventory();updateCart();}
+function updateInventory(){let html='',fullHTML='',lowCount=0,totalStock=0;products.forEach(product=>{totalStock+=product.stock;let low=product.stock<product.reorder;if(low)lowCount++;html+=`<tr><td><strong>${product.name}</strong></td><td>₹${product.price}</td><td class="${low?'stock-low':'stock-ok'}">${product.stock}</td><td><span class="status ${low?'status-low':'status-ok'}">${low?'RESTOCK':'OK'}</span></td></tr>`;fullHTML+=`<tr><td>${product.id}</td><td><strong>${product.name}</strong></td><td>${product.category}</td><td style="font-family:monospace;">${product.barcode}</td><td>₹${product.price}</td><td class="${low?'stock-low':'stock-ok'}">${product.stock}</td><td><span class="status ${low?'status-low':'status-ok'}">${low?'⚠ RESTOCK':'✓ OK'}</span></td></tr>`});document.getElementById('inventoryTable').innerHTML=html;document.getElementById('fullInventory').innerHTML=fullHTML;document.getElementById('totalProducts').innerText=products.length;document.getElementById('totalStock').innerText=totalStock;document.getElementById('lowStock').innerText=lowCount;updateAlerts();}
+function updateAlerts(){let lowProducts=products.filter(p=>p.stock<p.reorder),html='';if(!lowProducts.length)html='<div class="alert" style="background:#f0fdf4;color:#15803d;border-color:#bbf7d0;"><strong>✓ Inventory Normal</strong>All inventory levels are currently normal.</div>';else lowProducts.forEach(product=>html+=`<div class="alert"><strong>⚠ ${product.name}</strong>Current stock: ${product.stock}<br>Reorder level: ${product.reorder}</div>`);document.getElementById('alerts').innerHTML=html;}
+function createProductButtons(){let html='';products.forEach(product=>html+=`<button class="product-button" onclick="addToCart(${product.id})"><strong>${product.name}</strong><span style="color:#16a34a;font-weight:700;">₹${product.price}</span> · <span style="color:#64748b;font-size:13px;">Stock: ${product.stock}</span></button>`);document.getElementById('productButtons').innerHTML=html;}
+function addToCart(productID){const product=products.find(p=>p.id===productID);if(!product)return;const existing=cart.find(item=>item.id===productID);const quantityInCart=existing?existing.quantity:0;if(product.stock<=quantityInCart){alert('OUT OF STOCK');return;}if(existing)existing.quantity++;else cart.push({id:product.id,name:product.name,price:product.price,quantity:1});updateCart();}
+function updateCart(){let html='',total=0;if(!cart.length)html='<p style="text-align:center;color:#94a3b8;padding:50px 0;">No products scanned</p>';else cart.forEach(item=>{let itemTotal=item.price*item.quantity;total+=itemTotal;html+=`<div class="cart-item"><div><div class="item-name">${item.name}</div><div style="font-size:12.5px;color:#64748b;">Qty: ${item.quantity}</div></div><div class="item-price">₹${itemTotal}</div></div>`});document.getElementById('cartItems').innerHTML=html;document.getElementById('cartTotal').innerText='₹'+total;document.getElementById('paymentAmount').innerText='₹'+total;}
+function simulateScan(){const available=products.filter(p=>{const item=cart.find(i=>i.id===p.id);return p.stock>(item?item.quantity:0)});if(!available.length){alert('All products are out of stock');return;}addToCart(available[Math.floor(Math.random()*available.length)].id);alert('Barcode scanned successfully!');}
+function paymentSuccess(){if(!cart.length){alert('Cart is empty!');return;}cart.forEach(item=>{const product=products.find(p=>p.id===item.id);if(product)product.stock-=item.quantity});document.querySelector('.qr-container').innerHTML='<div class="payment-success">✓ PAYMENT SUCCESSFUL<br><br><span style="font-size:15px;font-weight:500;">Thank you for shopping with CartNova!</span></div>';updateInventory();cart=[];updateCart();}
+createProductButtons();updateInventory();updateCart();
+</script>
+</body>
+</html>
